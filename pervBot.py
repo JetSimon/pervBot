@@ -38,14 +38,16 @@ async def on_message(message):
         return
 
     if message.content == '!perv':
-
-        heart_data = authd_client.intraday_time_series('activities/heart', base_date=get_right_dateFormat(), detail_level='1sec')['activities-heart-intraday']['dataset'][-1]
-
-        BPM = str(heart_data['value'])
-
+        try:
+            heart_data = authd_client.intraday_time_series('activities/heart', base_date=get_right_dateFormat(), detail_level='1sec')['activities-heart-intraday']['dataset'][-1]
+            BPM = str(heart_data['value'])
+            BPM_TEXT = "Jet's heart was last measured beating at " + BPM + " BPM (" + heart_data['time'] + ")"
+        except fitbit.exceptions.HTTPTooManyRequests:
+            BPM_TEXT = "HEART DATA NOT AVAILABLE (TOO MANY REQUESTS)"
+        
         path = takePic()
         picture = discord.File(path)
-        await message.channel.send("Jet's heart was least measured beating at " + BPM + " BPM (" + heart_data['time'] + ")",file=picture)
+        await message.channel.send(BPM_TEXT,file=picture)
         os.remove(path)
 
 
