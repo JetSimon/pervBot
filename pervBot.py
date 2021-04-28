@@ -9,13 +9,11 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-
-CLIENT_ID = os.getenv('CLIENT_ID')
-CLIENT_SECRET = os.getenv('CLIENT_SECRET')
-ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
-REFRESH_TOKEN = os.getenv('REFRESH_TOKEN')
-
-if USE_FITBIT:
+if USE_FITBIT:    
+    CLIENT_ID = os.getenv('CLIENT_ID')
+    CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+    ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
+    REFRESH_TOKEN = os.getenv('REFRESH_TOKEN')
     authd_client = fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
 
 
