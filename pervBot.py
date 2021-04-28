@@ -1,11 +1,22 @@
 import os,io,discord
-from pervTools import takePic
+from pervTools import *
 from dotenv import load_dotenv
+import fitbit
+
 
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
+
+
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+ACCESS_TOKEN = os.getenv('ACCESS_TOKEN')
+REFRESH_TOKEN = os.getenv('REFRESH_TOKEN')
+
+authd_client = fitbit.Fitbit(CLIENT_ID, CLIENT_SECRET, oauth2=True, access_token=ACCESS_TOKEN, refresh_token=REFRESH_TOKEN)
+
 
 client = discord.Client()
 
@@ -27,9 +38,11 @@ async def on_message(message):
         return
 
     if message.content == '!perv':
+        today_date = get_right_dateFormat()
+        BPM = str(authd_client.intraday_time_series('activities/heart', base_date=get_right_dateFormat(), detail_level='1sec')['activities-heart-intraday']['dataset'][-1]['value'])
         path = takePic()
         picture = discord.File(path)
-        await message.channel.send(file=picture)
+        await message.channel.send("Jet's heart is beating at " + BPM + " BPM",file=picture)
         os.remove(path)
 
 
