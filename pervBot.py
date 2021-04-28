@@ -25,7 +25,7 @@ def BPM():
         try:
             heart_data = authd_client.intraday_time_series('activities/heart', base_date=get_right_dateFormat(), detail_level='1sec')['activities-heart-intraday']['dataset'][-1]
             BPM = str(heart_data['value'])
-            BPM_TEXT = BPM + " BPM (" + heart_data['time'] + ")"
+            BPM_TEXT = BPM + " BPM | last fetched: (" + heart_data['time'] + ")"
             return BPM_TEXT
         except fitbit.exceptions.HTTPTooManyRequests:
             print("HEART DATA NOT AVAILABLE (TOO MANY REQUESTS)")
@@ -64,8 +64,8 @@ async def on_message(message):
     elif message.content[:5] == '!meme':
         if len(message.content.split(" ", 1)) > 1 and ":" in message.content:
             text = message.content.split(" ",1)[1]
-            top = text.split(":")[0]
-            bottom = text.split(":")[1]
+            top = text.split(":",1)[0]
+            bottom = text.split(":",1)[1]
             #creates pic and adds text if exists
             path = makeMeme(top, bottom)
             picture = discord.File(path)
