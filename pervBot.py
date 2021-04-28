@@ -3,7 +3,7 @@ from pervTools import *
 from dotenv import load_dotenv
 import fitbit
 
-USE_FITBIT = True
+USE_FITBIT = False
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
