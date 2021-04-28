@@ -1,10 +1,7 @@
 import cv2
-import base64
 from random import randint
 import fitbit
 import datetime
-
-
 
 def takePic():
     video_capture = cv2.VideoCapture(0, cv2.CAP_DSHOW)
@@ -19,9 +16,6 @@ def takePic():
     video_capture.release()
     cv2.destroyAllWindows()
     return path
-
-def getBPM():
-    pass
 
 #https://github.com/thegabriele97/AmiRunning-code/blob/2ef3732a30eb12c3ad12e35c9f13ae28bcab8559/src/RaspberryPi/fitbitPackage/fitbit_api.py#L31
 def get_right_dateFormat(offset: int = 0) -> str:
