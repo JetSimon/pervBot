@@ -38,8 +38,11 @@ async def on_message(message):
         return
 
     if message.content == '!perv':
-        today_date = get_right_dateFormat()
-        BPM = str(authd_client.intraday_time_series('activities/heart', base_date=get_right_dateFormat(), detail_level='1sec')['activities-heart-intraday']['dataset'][-1]['value'])
+        
+        heart_data = authd_client.intraday_time_series('activities/heart', base_date=get_right_dateFormat(), detail_level='1sec')['activities-heart-intraday']['dataset'][-1])
+        BPM = heart_data['value']
+        print("BPM TAKEN AT " + heart_data['time'])
+
         path = takePic()
         picture = discord.File(path)
         await message.channel.send("Jet's heart is beating at " + BPM + " BPM",file=picture)
